@@ -13,7 +13,7 @@ gen_node_identity() {
 }
 
 start_node() {
-    node_args=("--data-dir" "$node_dir" "--rpc-addr" "$rpc_addr" "--net-addr" "$net_addr" "--no-bootstrap-peers" "--bootstrap-threshold" "3" "--history-mode" "archive")
+    node_args=("--data-dir" "$node_dir" "--rpc-addr" "$rpc_addr" "--net-addr" "$net_addr" "--no-bootstrap-peers" "--bootstrap-threshold" "2" "--history-mode" "archive")
     for peer in "${peers[@]:-}"; do
         node_args+=("--peer" "$peer")
     done
