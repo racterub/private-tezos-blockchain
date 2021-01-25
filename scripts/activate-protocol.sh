@@ -8,11 +8,11 @@ set -euo pipefail
 export TEZOS_CLIENT_UNSAFE_DISABLE_DISCLAIMER="Y"
 
 activate_protocol() {
-    "$tezos_client" -A "$node_ip" -P "$node_port" -d "$client_dir" --block genesis activate protocol \
+    "$tezos_client" -E "https://$node_ip:$node_port" -d "$client_dir" --block genesis activate protocol \
       "$protocol" with fitness "$fitness" and key genesis and parameters "$parameters"
 }
 bake_block() {
-    "$tezos_client" -A "$node_ip" -P "$node_port" -d "$client_dir" bake for baker --minimal-timestamp
+    "$tezos_client" -E "https://$node_ip:$node_port" -d "$client_dir" bake for baker --minimal-timestamp
 }
 
 usage() {
@@ -38,8 +38,8 @@ if [[ $# -eq 0 || $1 == "--help" ]]; then
     exit 1
 fi
 
-base_chain="carthagenet"
-dephi
+base_chain="delphinet"
+delphinet_protocol="PsDELPH1Kxsxt8f9eWbxQeRxkjfbxoqM52jvs5Y5fBxWWh4ifpo"
 carthagenet_protocol="PsCARTHAGazKbHtnKfLzQg3kms52kSRpgnDY982a9oYsSXRLQEb"
 babylonnet_protocol="PsBabyM1eUXZseaJdmXFApDSBqj8YBfwELoxZHHW77EMcAbbwAS"
 
@@ -109,6 +109,9 @@ case "$base_chain" in
         ;;
     carthagenet )
         protocol="$carthagenet_protocol"
+        ;;
+    delphinet )
+        protocol="$delphinet_protocol"
         ;;
     *)
         echo "$base_chain not supported. Only 'babylonnet' and 'carthagenet' are supported."
