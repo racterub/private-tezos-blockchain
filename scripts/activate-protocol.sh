@@ -39,6 +39,7 @@ if [[ $# -eq 0 || $1 == "--help" ]]; then
 fi
 
 base_chain="carthagenet"
+dephi
 carthagenet_protocol="PsCARTHAGazKbHtnKfLzQg3kms52kSRpgnDY982a9oYsSXRLQEb"
 babylonnet_protocol="PsBabyM1eUXZseaJdmXFApDSBqj8YBfwELoxZHHW77EMcAbbwAS"
 

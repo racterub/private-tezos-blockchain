@@ -44,7 +44,7 @@ fi
 
 encrypted_flag=false
 genesis_key=""
-base_chain="carthagenet"
+base_chain="delphinet"
 while true; do
     if [[ $# -eq 0 ]]; then
         break
@@ -85,7 +85,7 @@ fi
 [[ $exit_flag == "true" ]] && exit 1
 
 mkdir -p "$base_dir"
-wget https://github.com/serokell/tezos-packaging/releases/download/202004061400/tezos-client \
+wget https://github.com/serokell/tezos-packaging/releases/download/v8.1-1/tezos-client \
      -P "$base_dir/"
 client_dir="$base_dir/client"
 mkdir -p "$client_dir"
@@ -94,7 +94,7 @@ mkdir -p "$node_dir"
 
 [[ -z $genesis_key ]] && gen_genesis_key
 
-wget https://github.com/serokell/tezos-packaging/releases/download/202004061400/tezos-node \
+wget https://github.com/serokell/tezos-packaging/releases/download/v8.1-1/tezos-node \
      -P "$base_dir/"
 case "$base_chain" in
     babylonnet )
@@ -146,6 +146,34 @@ EOM
     },
     "chain_name": "TEZOS_ALPHANET_CARTHAGE_2019-11-28T13:02:13Z",
     "old_chain_name": "TEZOS_ALPHANET_CARTHAGE_2019-11-28T13:02:13Z",
+    "incompatible_chain_name": "INCOMPATIBLE",
+    "sandboxed_chain_name": "SANDBOXED_TEZOS",
+    "default_bootstrap_peers": []
+  }
+}
+EOM
+        ;;
+    delphinet )
+        wget https://github.com/serokell/tezos-packaging/releases/download/v8.1-1/tezos-endorser-007-PsDELPH1 \
+             -P "$base_dir/"
+        wget https://github.com/serokell/tezos-packaging/releases/download/v8.1-1/tezos-baker-007-PsDELPH1 \
+             -P "$base_dir/"
+        cat > "$node_dir/config.json" <<- EOM
+{
+  "p2p": {},
+  "network": {
+    "genesis": {
+      "timestamp": "2020-09-04T07:08:53Z",
+      "block": "BLockGenesisGenesisGenesisGenesisGenesis355e8bjkYPv",
+      "protocol": "PtYuensgYBb3G3x1hLLbCmcav8ue8Kyd2khADcL5LsT5R1hcXex"
+    },
+    "genesis_parameters": {
+      "values": {
+        "genesis_pubkey": "$genesis_key"
+      }
+    },
+    "chain_name": "TEZOS_DELPHINET_2020-09-04T07:08:53Z",
+    "old_chain_name": "TEZOS_DELPHINET_2020-09-04T07:08:53Z",
     "incompatible_chain_name": "INCOMPATIBLE",
     "sandboxed_chain_name": "SANDBOXED_TEZOS",
     "default_bootstrap_peers": []
