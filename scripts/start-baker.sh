@@ -37,11 +37,11 @@ gen_baker_account() {
 }
 
 start_baker() {
-    (sleep 5s && "$tezos_baker" -A "$node_ip" -P "$node_port" -d "$client_dir" run with local node "$node_dir" baker &>"$base_dir/baker.log") &
+    (sleep 5s && "$tezos_baker" -E "http://$node_ip:$node_port" -d "$client_dir" run with local node "$node_dir" baker &>"$base_dir/baker.log") &
 }
 
 start_endorser() {
-    (sleep 5s && "$tezos_endorser" -A "$node_ip" -P "$node_port" -d "$client_dir" run baker &>"$base_dir/endorser.log") &
+    (sleep 5s && "$tezos_endorser" -E "http://$node_ip:$node_port" -d "$client_dir" run baker &>"$base_dir/endorser.log") &
 }
 
 usage() {
