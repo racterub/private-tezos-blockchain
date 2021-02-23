@@ -13,7 +13,7 @@ gen_node_identity() {
 }
 
 start_node() {
-    node_args=("--data-dir" "$node_dir" "--rpc-addr" "$rpc_addr" "--net-addr" "$net_addr" "--no-bootstrap-peers" "--bootstrap-threshold" "2" "--history-mode" "archive")
+    node_args=("--data-dir" "$node_dir" "--rpc-addr" "$rpc_addr" "--net-addr" "$net_addr" "--no-bootstrap-peers" "--bootstrap-threshold" "2" "--history-mode" "$mode")
     for peer in "${peers[@]:-}"; do
         node_args+=("--peer" "$peer")
     done
@@ -75,6 +75,7 @@ stop_flag="false"
 encrypted_flag="false"
 background_flag="true"
 peers=()
+mode="full"
 
 while true; do
     if [[ $# -eq 0 ]]; then
@@ -120,6 +121,10 @@ while true; do
         --no-background-node )
             background_flag="false"
             shift
+            ;;
+        --mode )
+            mode="$2"
+            shift 2
             ;;
         stop)
             stop_flag="true"
